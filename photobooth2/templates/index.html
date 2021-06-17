@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RaspPi Photobooth</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Raspberry Pi Photobooth</h1>
+    <h2>SMILE :)</h2>
+    <img src="{{ url_for('stream') }}">
+
+
+    <form  method="POST">
+        <p><input id="gray-btn" type="button" value= "Gray" name="gray-btn"></p>
+        <p><input id="reset-btn" type="button" value= "Reset" name="reset-btn"></p>
+        <p><input id="blur-btn" type="button" value= "Blur" name="blur-btn"></p>
+        <p><input id="capture-btn" type="button" name="capture-btn" value="Take Pic"></p>
+    </form>
+
+
+
+
+    <script>
+    
+        let capture = document.querySelector("#capture-btn");
+        let gray = document.querySelector("#gray-btn");
+        let reset = document.querySelector("#reset-btn");
+        let blurr = document.querySelector("#blur-btn");
+
+        gray.onclick = function(){
+            var req = new XMLHttpRequest();
+            req.open('POST', '/filter', true);
+            req.send("gray");
+        }
+        reset.onclick = function(){
+            var req = new XMLHttpRequest();
+            req.open('POST', '/filter', true);
+            req.send("reset");
+        }
+        blurr.onclick = function(){
+            var req = new XMLHttpRequest();
+            req.open('POST', '/filter', true);
+            req.send("blur");
+        }
+        capture.onclick = function(){
+            var req = new XMLHttpRequest();
+            req.open('POST', '/capture');
+            req.send("Take pic!");
+       
+        }
+
+    
+    </script>
+    
+</body>
+
+</html>
